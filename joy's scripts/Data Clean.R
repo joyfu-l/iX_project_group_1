@@ -19,15 +19,17 @@ df_unid <- df_cluster %>%
   select(unid)
 
 df_cluster <- df_cluster %>% 
-  mutate(num = ifelse(working==TRUE, 1, 0))
+  mutate(working = ifelse(working==TRUE, 1, 0))
 
 df_cluster <- df_cluster %>% 
-  select(X, unid, age, peoplelive, num)
+  select(X, unid, age, peoplelive, working)
 
-df_cluster <- mutate(df_cluster,
+df_clean <- mutate(df_cluster,
                      X= factor(X),
                      unid = factor(unid))
 
-sapply(df_cluster, class)
+df_clean$peoplelive <- as.numeric(df_clean$peoplelive)
 
-view(df_cluster)
+sapply(df_clean, class)
+
+view(df_clean)
